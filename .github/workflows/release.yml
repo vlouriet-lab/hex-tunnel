@@ -44,25 +44,7 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
 
-      # ── libbox.aar — downloaded from the public sing-box release ─────────────
-      # No secrets required. libbox.aar is a public artifact published by
-      # the sagernet/sing-box project under its own license.
-      - name: Resolve sing-box version
-        id: sbver
-        run: |
-          INPUT="${{ github.event.inputs.singbox_version }}"
-          VERSION="${INPUT:-$SINGBOX_VERSION_DEFAULT}"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "Using sing-box $VERSION"
 
-      - name: Download libbox.aar
-        run: |
-          VERSION="${{ steps.sbver.outputs.version }}"
-          URL="https://github.com/sagernet/sing-box/releases/download/v${VERSION}/libbox.aar"
-          echo "Fetching $URL"
-          mkdir -p android/app/libs
-          curl -L --fail --retry 3 -o android/app/libs/libbox.aar "$URL"
-          ls -lh android/app/libs/libbox.aar
 
       # ── Build ─────────────────────────────────────────────────────────────────
       # No key.properties → build.gradle falls back to Android debug signing.
