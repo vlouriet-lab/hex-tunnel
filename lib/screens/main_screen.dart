@@ -3,11 +3,11 @@ import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import '../l10n/app_strings.dart';
 import '../models/app_connection_mode.dart';
-import '../models/installed_app.dart';
+
 import '../models/offline_deblock_profile.dart';
 import '../models/proxy_profile.dart';
 import '../models/routing_mode.dart';
-import '../models/split_tunneling.dart';
+
 import '../models/tunnel_status.dart';
 import '../services/key_loader_service.dart';
 import '../theme/app_theme.dart';

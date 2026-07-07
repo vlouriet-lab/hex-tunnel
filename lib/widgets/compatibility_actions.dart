@@ -13,6 +13,7 @@ class CompatibilityActionsCard extends StatelessWidget {
   final VoidCallback onManageApps;
 
   const CompatibilityActionsCard({
+    super.key,
     required this.provider,
     required this.onPause,
     required this.onResume,
@@ -157,7 +158,7 @@ class CompatibilityActionsCard extends StatelessWidget {
 }
 
 class CompatibilityAppsSheet extends StatefulWidget {
-  const CompatibilityAppsSheet();
+  const CompatibilityAppsSheet({super.key});
 
   @override
   State<CompatibilityAppsSheet> createState() =>
@@ -321,7 +322,7 @@ class CompatibilityAppsSheetState extends State<CompatibilityAppsSheet> {
 class CompatibilityAppTile extends StatelessWidget {
   final InstalledApp app;
 
-  const CompatibilityAppTile({required this.app});
+  const CompatibilityAppTile({super.key, required this.app});
 
   @override
   Widget build(BuildContext context) {
