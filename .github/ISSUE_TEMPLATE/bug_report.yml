@@ -1,0 +1,80 @@
+name: Bug Report
+description: Something isn't working correctly
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please fill out all sections below — it helps us reproduce and fix issues faster.
+
+  - type: input
+    id: app_version
+    attributes:
+      label: App version
+      description: Visible in the app Settings screen (e.g. 1.5.0)
+      placeholder: "1.5.0"
+    validations:
+      required: true
+
+  - type: input
+    id: android_version
+    attributes:
+      label: Android version & device
+      description: e.g. Android 15 / Samsung Galaxy S24
+      placeholder: "Android 14 / Pixel 8"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: connection_mode
+    attributes:
+      label: Connection mode when bug occurs
+      options:
+        - Auto (best key)
+        - Manual key selection
+        - Offline Deblocker (WARP)
+        - Not applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the app
+        2. Tap Connect
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs (optional)
+      description: Paste any relevant logcat output or error messages. Sensitive info (IPs, keys) can be redacted.
+      render: text
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have checked the existing Issues for duplicates
+          required: true
+        - label: I am using the latest release APK
+          required: true

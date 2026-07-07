@@ -1,0 +1,5 @@
+    versionCode=7005 minSdk=26 targetSdk=36
+    versionName=1.5.0
+    lastUpdateTime=2026-04-14 10:53:16
+      firstInstallTime=2026-04-14 10:48:08
+      firstInstallTime=2026-04-14 10:48:08

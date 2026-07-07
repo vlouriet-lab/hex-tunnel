@@ -1,0 +1,102 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      singbox_version:
+        description: "sing-box version to fetch libbox.aar from (e.g. 1.11.3)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+# Pinned sing-box version used when not overridden via workflow_dispatch.
+# Update this when you want to ship a newer libbox.
+env:
+  SINGBOX_VERSION_DEFAULT: "1.11.3"
+
+jobs:
+  build-and-publish:
+    name: Build debug APKs & publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.5"
+          channel: stable
+          cache: true
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      # ── libbox.aar — downloaded from the public sing-box release ─────────────
+      # No secrets required. libbox.aar is a public artifact published by
+      # the sagernet/sing-box project under its own license.
+      - name: Resolve sing-box version
+        id: sbver
+        run: |
+          INPUT="${{ github.event.inputs.singbox_version }}"
+          VERSION="${INPUT:-$SINGBOX_VERSION_DEFAULT}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Using sing-box $VERSION"
+
+      - name: Download libbox.aar
+        run: |
+          VERSION="${{ steps.sbver.outputs.version }}"
+          URL="https://github.com/sagernet/sing-box/releases/download/v${VERSION}/libbox.aar"
+          echo "Fetching $URL"
+          mkdir -p android/app/libs
+          curl -L --fail --retry 3 -o android/app/libs/libbox.aar "$URL"
+          ls -lh android/app/libs/libbox.aar
+
+      # ── Build ─────────────────────────────────────────────────────────────────
+      # No key.properties → build.gradle falls back to Android debug signing.
+      # Debug APKs are fully installable via side-loading (adb install / manual).
+      - name: Build debug APKs (split per ABI)
+        run: flutter build apk --debug --split-per-abi
+
+      - name: List artifacts
+        run: ls -lh build/app/outputs/flutter-apk/
+
+      # ── Publish to GitHub Release ─────────────────────────────────────────────
+      - name: Create GitHub Release and upload APKs
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            ## Installation
+
+            1. Download the APK for your device:
+               - **`app-arm64-v8a-debug.apk`** — all modern Android phones (recommended)
+               - **`app-armeabi-v7a-debug.apk`** — older 32-bit devices
+
+            2. Enable **Install from unknown sources** on your device.
+            3. Open the downloaded APK and tap **Install**.
+
+            > These APKs are signed with the Android debug certificate.
+            > They are safe to install — debug signing only means they are not signed
+            > with a private release key, not that they are less secure to run.
+
+            Built with sing-box libbox `v${{ steps.sbver.outputs.version }}`.
+          files: |
+            build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk
+            build/app/outputs/flutter-apk/app-armeabi-v7a-debug.apk
+          generate_release_notes: false
+          draft: false
+          prerelease: false

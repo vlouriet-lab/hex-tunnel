@@ -1,0 +1,83 @@
+# ─── Android signing secrets (NEVER commit) ──────────────────────────────────
+android/key.properties
+android/keystore/
+*.jks
+*.keystore
+
+# ─── Flutter / Dart generated artifacts ──────────────────────────────────────
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+
+# ─── IDE & OS ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml
+.vs/
+.puro.json
+*.slnx
+*.suo
+.DS_Store
+Thumbs.db
+
+# ─── Local Flutter SDK (vendored, not for contributors) ──────────────────────
+flutter/
+
+# ─── Device diagnostic / debug session artifacts ─────────────────────────────
+*.log
+*.log2
+*-logcat.txt
+*-filter.txt
+*-filter.log
+*logcat*.log
+*logcat*.txt
+singbox-*.log
+singbox-*.txt
+phone-*.log
+phone-*.txt
+physical-device-*.log
+legacy-retry-*.txt
+legacy-retry-*.log
+legacy-after-*.txt
+legacy-after-*.log
+dns-*.txt
+dns-*.log
+preferred-dns-*.txt
+verify-*.log
+arm64-phone-*.txt
+vpn-manual-cycles.txt
+vpn-multi-key-cycles.txt
+install-latest.txt
+latest-logcat*.log
+
+# ─── UI/screen dumps ─────────────────────────────────────────────────────────
+*.xml
+*.png
+current-ui.*
+legacy-after-cidr-ui.*
+ui-after-connect-tap.*
+
+# ─── Temporary diagnostic files ──────────────────────────────────────────────
+tmp-*.xml
+flutter-prefs*.xml
+diag.ps1
+install_diag.ps1
+profileInstalled.json
+checkpoint-*.sha256
+libbox-tmp.jar
+box.log
+
+# ─── Android local environment (machine-specific) ────────────────────────────
+android/local.properties
+
+# ─── Web placeholder (not a web app) ─────────────────────────────────────────
+web/
+
+# --- Release & Agent Artifacts ------------------------------------------------
+/debug_info/
+walkthrough.md
+implementation_plan.md
+task.md
+comparison_happ_hiddify.md

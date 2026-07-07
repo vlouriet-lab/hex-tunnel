@@ -1,0 +1,24 @@
+{
+  "log": {"level": "warn"},
+  "endpoints": [
+    {
+      "type": "wireguard",
+      "tag": "ep-1",
+      "address": ["10.0.0.1/32"],
+      "private_key": "dummy",
+      "peers": [{"address": "1.1.1.1", "port": 51820, "public_key": "dummy"}]
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "wireguard",
+      "tag": "out-1",
+      "endpoint": "ep-1"
+    },
+    {
+      "type": "urltest",
+      "tag": "test",
+      "outbounds": ["out-1"]
+    }
+  ]
+}
