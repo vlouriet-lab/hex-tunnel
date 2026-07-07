@@ -14,6 +14,14 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
+allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs << "-Xlint:-options"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
