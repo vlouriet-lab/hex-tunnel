@@ -74,8 +74,6 @@ jobs:
             > These APKs are signed with the Android debug certificate.
             > They are safe to install — debug signing only means they are not signed
             > with a private release key, not that they are less secure to run.
-
-            Built with sing-box libbox `v${{ steps.sbver.outputs.version }}`.
           files: |
             build/app/outputs/flutter-apk/app-arm64-v8a-debug.apk
             build/app/outputs/flutter-apk/app-armeabi-v7a-debug.apk
