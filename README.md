@@ -16,7 +16,18 @@
 
 ## 📱 Screenshots
 
-*(Screenshots to be added)*
+<p align="center">
+  <img src="docs/screenshots/screen1.jpg" width="24%">
+  <img src="docs/screenshots/screen2.jpg" width="24%">
+  <img src="docs/screenshots/screen3.jpg" width="24%">
+  <img src="docs/screenshots/screen4.jpg" width="24%">
+</p>
+<p align="center">
+  <img src="docs/screenshots/screen5.jpg" width="24%">
+  <img src="docs/screenshots/screen6.jpg" width="24%">
+  <img src="docs/screenshots/screen7.jpg" width="24%">
+</p>
+
 
 ## 🚀 Getting Started
 
