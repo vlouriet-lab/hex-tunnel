@@ -714,7 +714,7 @@ class HexVpnService : VpnService() {
         networkInterface: String? = null,
         networkTransport: String? = null,
     ) {
-        getSharedPreferences(QUICK_TOGGLE_PREFS, Context.MODE_PRIVATE)
+        PrefsHelper.getEncryptedPrefs(this, QUICK_TOGGLE_PREFS)
             .edit()
             .putString(QUICK_TOGGLE_LAST_STATUS, status)
             .putString(QUICK_TOGGLE_LAST_REGION, notificationRegionLabel)

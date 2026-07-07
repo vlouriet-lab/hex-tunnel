@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hex Tunnel</string>
+    <string name="vpn_notification_title">Hex Tunnel VPN</string>
+    <string name="vpn_notification_text">Tunnel is active</string>
+    <string name="vpn_channel_name">VPN Service</string>
+    <string name="vpn_channel_id">hex_decensor_vpn</string>
+    <string name="tile_label">Hex Tunnel</string>
+    <string name="tile_subtitle_on">VPN active</string>
+    <string name="tile_subtitle_off">Tap to start</string>
+</resources>

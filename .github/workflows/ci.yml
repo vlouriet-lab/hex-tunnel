@@ -34,3 +34,6 @@ jobs:
 
       - name: Test
         run: flutter test --reporter=expanded
+
+      - name: Build Debug APK (Smoke Test)
+        run: flutter build apk --debug

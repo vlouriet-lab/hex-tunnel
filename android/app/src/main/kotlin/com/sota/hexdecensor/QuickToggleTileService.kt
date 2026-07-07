@@ -46,7 +46,7 @@ class QuickToggleTileService : TileService() {
     }
 
     private fun startVpnFromCache(): Boolean {
-        val prefs = getSharedPreferences(HexVpnService.QUICK_TOGGLE_PREFS, MODE_PRIVATE)
+        val prefs = PrefsHelper.getEncryptedPrefs(this, HexVpnService.QUICK_TOGGLE_PREFS)
         val config = prefs.getString(HexVpnService.QUICK_TOGGLE_CONFIG, null)
         if (config.isNullOrBlank()) {
             return false
@@ -98,7 +98,7 @@ class QuickToggleTileService : TileService() {
             return true
         }
 
-        val status = getSharedPreferences(HexVpnService.QUICK_TOGGLE_PREFS, MODE_PRIVATE)
+        val status = PrefsHelper.getEncryptedPrefs(this, HexVpnService.QUICK_TOGGLE_PREFS)
             .getString(HexVpnService.QUICK_TOGGLE_LAST_STATUS, "stopped")
             ?: "stopped"
         return status == "connected" || status == "connecting"
@@ -120,7 +120,7 @@ class QuickToggleTileService : TileService() {
         if (!active) {
             return getString(R.string.tile_subtitle_off)
         }
-        val region = getSharedPreferences(HexVpnService.QUICK_TOGGLE_PREFS, MODE_PRIVATE)
+        val region = PrefsHelper.getEncryptedPrefs(this, HexVpnService.QUICK_TOGGLE_PREFS)
             .getString(HexVpnService.QUICK_TOGGLE_LAST_REGION, null)
             ?.trim()
             .orEmpty()

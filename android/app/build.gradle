@@ -87,6 +87,22 @@ flutter {
     source '../..'
 }
 
+def libboxAar = file('libs/libbox.aar')
+def libboxUrl = 'https://github.com/vlouriet-lab/hex-tunnel/releases/download/libbox-deps/libbox.aar'
+
+task downloadLibbox {
+    doLast {
+        if (!libboxAar.exists()) {
+            println "Downloading libbox.aar from ${libboxUrl}..."
+            libboxAar.parentFile.mkdirs()
+            new URL(libboxUrl).withInputStream { i ->
+                libboxAar.withOutputStream { it << i }
+            }
+        }
+    }
+}
+preBuild.dependsOn downloadLibbox
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.10"
     implementation 'androidx.core:core-ktx:1.12.0'
@@ -94,4 +110,5 @@ dependencies {
 
     // sing-box libbox Android library (libbox.aar must be in android/app/libs/)
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'])
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 }

@@ -1,4 +1,4 @@
-﻿package com.sota.hexdecensor
+package com.sota.hexdecensor
 
 import android.app.ActivityManager
 import android.content.BroadcastReceiver
@@ -97,12 +97,12 @@ class SingBoxBridge(private val activity: MainActivity) {
                 }
             }
             val filter = IntentFilter(HexVpnService.BROADCAST_STATUS)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                activity.registerReceiver(statusReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-            } else {
-                @Suppress("UnspecifiedRegisterReceiverFlag")
-                activity.registerReceiver(statusReceiver, filter)
-            }
+            androidx.core.content.ContextCompat.registerReceiver(
+                activity, 
+                statusReceiver, 
+                filter, 
+                androidx.core.content.ContextCompat.RECEIVER_NOT_EXPORTED
+            )
 
             val snapshot = getStatusMap()
             activity.runOnUiThread { eventSink?.success(snapshot) }
@@ -188,7 +188,7 @@ class SingBoxBridge(private val activity: MainActivity) {
         offlineDeblockSettings: String?,
         offlineDeblockRuntimeBundle: String?,
     ) {
-        activity.getSharedPreferences(HexVpnService.QUICK_TOGGLE_PREFS, Context.MODE_PRIVATE)
+        PrefsHelper.getEncryptedPrefs(activity, HexVpnService.QUICK_TOGGLE_PREFS)
             .edit()
             .putString(HexVpnService.QUICK_TOGGLE_CONFIG, configJson)
             .putString(HexVpnService.QUICK_TOGGLE_SPLIT_MODE, splitMode)
