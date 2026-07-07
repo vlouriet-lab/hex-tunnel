@@ -160,7 +160,7 @@ void main() {
       final endpoints =
           (config['endpoints'] as List<dynamic>).cast<Map<String, dynamic>>();
       final warpEndpoint = endpoints.firstWhere(
-        (entry) => entry['tag'] == 'warp',
+        (entry) => (entry['tag'] as String).startsWith('warp-'),
       );
       expect(warpEndpoint['type'], 'wireguard');
       final interfaceAddresses =
@@ -172,7 +172,7 @@ void main() {
       );
       final peers =
           (warpEndpoint['peers'] as List<dynamic>).cast<Map<String, dynamic>>();
-      expect(peers.single['address'], 'engage.cloudflareclient.com');
+      expect(peers.single['address'], '162.159.192.1');
       expect(peers.single['port'], 2408);
       expect(
         _stringList(peers.single['allowed_ips']),
